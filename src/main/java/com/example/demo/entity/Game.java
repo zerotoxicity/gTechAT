@@ -2,26 +2,63 @@ package com.example.demo.entity;
 
 import com.example.demo.enums.Piece;
 import com.example.demo.enums.Status;
+import com.vladmihalcea.hibernate.type.array.IntArrayType;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.type.descriptor.java.IntegerPrimitiveArrayJavaType;
 
 import java.util.Arrays;
 
+@Entity
+@Table(name="game")
 public class Game {
+    @Id
     private String gameId;
+
+    @Type(IntArrayType.class)
+    @Column(name = "board",columnDefinition = "int[][]")
     private int[][] board;
+
+    @Column(name = "move_count")
     private int moveCount;
-    private Player player1;
-    private Player player2;
+
+    @Column(name="player1")
+    private String player1;
+
+    @Column(name="player2")
+    private String player2;
+
+    @Column(name="player_turn")
+    private String playerTurn;
+
+    @Column(name="current_status")
     private Status status;
+
+    @Column(name="winner")
     private Piece winner;
 
 
-    public Game(String gameId, int[][] board, Player player1){
+
+    public Game(String gameId, int[][] board, String player1){
         this.gameId=gameId;
         for(int i=0; i<board.length;i++) Arrays.fill(board[i],-1);
         this.board= board;
         this.player1=player1;
         this.status=Status.NEW;
         this.moveCount = 0;
+        this.playerTurn=null;
+    }
+
+    public Game() {
+    }
+
+    public String getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(String playerTurn) {
+        this.playerTurn = playerTurn;
     }
 
     public int getMoveCount() {
@@ -48,19 +85,19 @@ public class Game {
         this.board = board;
     }
 
-    public Player getPlayer1() {
+    public String getPlayer1() {
         return player1;
     }
 
-    public void setPlayer1(Player player1) {
+    public void setPlayer1(String player1) {
         this.player1 = player1;
     }
 
-    public Player getPlayer2() {
+    public String getPlayer2() {
         return player2;
     }
 
-    public void setPlayer2(Player player2) {
+    public void setPlayer2(String player2) {
         this.player2 = player2;
     }
 
