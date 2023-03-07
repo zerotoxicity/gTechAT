@@ -21,7 +21,7 @@ public class GameController {
     }
 
     @GetMapping("/games")
-    public Map<String,Game> getGames(){
+    public Map<Integer,Game> getGames(){
         return gameService.getGame();
     }
 
@@ -37,11 +37,11 @@ public class GameController {
 
     @PutMapping("/games/{id}")
     public ResponseEntity<Game> putGame(@PathVariable String id, @RequestBody Gameplay gameplay) throws Exception {
-        return ResponseEntity.ok(gameService.gameplay(gameplay,id));
+        return ResponseEntity.ok(gameService.gameplay(gameplay,Integer.parseInt(id)-1));
     }
 
     @PutMapping("/games/{id}/{playerTwoId}")
     public ResponseEntity<Game> putGamePlayerTwo(@PathVariable String id, @PathVariable String playerTwoId) throws Exception {
-        return ResponseEntity.ok(gameService.connectToGame(playerTwoId, id));
+        return ResponseEntity.ok(gameService.connectToGame(playerTwoId, Integer.parseInt(id)-1));
     }
 }

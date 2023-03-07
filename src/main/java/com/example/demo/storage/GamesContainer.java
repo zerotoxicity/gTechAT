@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GamesContainer {
-    private static Map<String, Game> games;
+    private static Map<Integer, Game> games;
     private static GamesContainer instance;
 
     private GamesContainer(){
@@ -18,7 +18,7 @@ public class GamesContainer {
         return instance;
     }
 
-    public Map<String,Game> getGames(){
+    public Map<Integer,Game> getGames(){
         return games;
     }
 

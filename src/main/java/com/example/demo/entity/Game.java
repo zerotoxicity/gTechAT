@@ -14,7 +14,8 @@ import java.util.Arrays;
 @Table(name="game")
 public class Game {
     @Id
-    private String gameId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int gameId;
 
     @Type(IntArrayType.class)
     @Column(name = "board",columnDefinition = "int[][]")
@@ -40,8 +41,7 @@ public class Game {
 
 
 
-    public Game(String gameId, int[][] board, String player1){
-        this.gameId=gameId;
+    public Game( int[][] board, String player1){
         for(int i=0; i<board.length;i++) Arrays.fill(board[i],-1);
         this.board= board;
         this.player1=player1;
@@ -69,11 +69,11 @@ public class Game {
         this.moveCount = moveCount;
     }
 
-    public String getGameId() {
+    public int getGameId() {
         return gameId;
     }
 
-    public void setGameId(String gameId) {
+    public void setGameId(int gameId) {
         this.gameId = gameId;
     }
 

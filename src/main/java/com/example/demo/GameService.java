@@ -26,7 +26,7 @@ public class GameService {
         this.gameRepo = gameRepo;
     }
 
-    public Map<String,Game> getGame(){
+    public Map<Integer,Game> getGame(){
         return GamesContainer.getInstance().getGames();
     }
 
@@ -37,14 +37,15 @@ public class GameService {
     }
 
     public Game newGame(String player){
-        Game game = new Game(UUID.randomUUID().toString(),new int[3][3],player);
+        Game game = new Game(new int[3][3],player);
         GamesContainer.getInstance().setGames(game);
         gameRepo.save(game);
         return game;
     }
 
-    public Game connectToGame(String player2, String gameId) throws Exception {
+    public Game connectToGame(String player2, Integer gameId) throws Exception {
         GamesContainer gamesContainer = GamesContainer.getInstance();
+        System.out.println(gameId +"?"+ gameId.getClass());
         if(!gamesContainer.getGames().containsKey(gameId)){
             throw new Exception("Invalid game");
         }
@@ -61,7 +62,7 @@ public class GameService {
         return game;
     }
 
-    public Game gameplay(Gameplay gameplay,String id) throws Exception {
+    public Game gameplay(Gameplay gameplay,Integer id) throws Exception {
         boolean completed = false;
         Game game = GamesContainer.getInstance().getGames().get(id);
         if(!game.getPlayerTurn().equals(gameplay.getPlayerId())) throw new Exception("Invalid player turn");
