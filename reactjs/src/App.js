@@ -1,7 +1,9 @@
 import React from 'react';
 import { Center, ChakraProvider, Heading } from '@chakra-ui/react';
-import BodyComponent from './components/BodyComponent';
+import { Route, Routes } from 'react-router-dom';
 import { theme } from './styles/theme';
+import Home from './pages/Home';
+import Game from './pages/Game';
 
 function App() {
   return (
@@ -12,7 +14,10 @@ function App() {
         </Heading>
       </Center>
       <main>
-        <BodyComponent />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/game" element={<Game />} />
+        </Routes>
       </main>
     </ChakraProvider>
   );

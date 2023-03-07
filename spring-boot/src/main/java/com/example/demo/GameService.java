@@ -9,15 +9,17 @@ import com.example.demo.storage.GamesContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
 
 @Service
 public class GameService {
-    @Autowired
-    private ApplicationEventPublisher applicationEventPublisher;
+//    @Autowired
+//    private ApplicationEventPublisher applicationEventPublisher;
+
+
 
     private final GameRepo gameRepo;
 
@@ -30,7 +32,7 @@ public class GameService {
         return GamesContainer.getInstance().getGames();
     }
 
-    public Game getGame(String gameId) throws Exception {
+    public Game getGame(Integer gameId) throws Exception {
          if (!GamesContainer.getInstance().getGames().containsKey(gameId)) throw new Exception("Invalid game");
         return GamesContainer.getInstance().getGames().get(gameId);
 
@@ -45,7 +47,6 @@ public class GameService {
 
     public Game connectToGame(String player2, Integer gameId) throws Exception {
         GamesContainer gamesContainer = GamesContainer.getInstance();
-        System.out.println(gameId +"?"+ gameId.getClass());
         if(!gamesContainer.getGames().containsKey(gameId)){
             throw new Exception("Invalid game");
         }
@@ -85,13 +86,14 @@ public class GameService {
             String nextPlayer = currPlayer.equals(game.getPlayer1()) ? game.getPlayer2() : game.getPlayer1();
             game.setPlayerTurn(nextPlayer);
         }
+        if(completed) game.setPlayerTurn("");
         game.setBoard(board);
         game.setMoveCount(game.getMoveCount()+1);
 
         GamesContainer.getInstance().setGames(game);
         String message = completed ? "Game ended" : "Turn completed";
-        CustomSpringEvent customSpringEvent = new CustomSpringEvent(this,message);
-        applicationEventPublisher.publishEvent(customSpringEvent);
+//        CustomSpringEvent customSpringEvent = new CustomSpringEvent(this,message);
+//        applicationEventPublisher.publishEvent(customSpringEvent);
         gameRepo.save(game);
         return game;
     }
