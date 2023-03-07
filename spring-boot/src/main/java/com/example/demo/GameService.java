@@ -69,6 +69,7 @@ public class GameService {
         if(game.getStatus().equals(Status.END)) throw new Exception("Game has ended");
         int[][] board = game.getBoard();
         int x = gameplay.getCoordX(),y = gameplay.getCoordY();
+        if(board[x][y]!=-1) throw new Exception("Invalid spot");
         int piece = gameplay.getPlayerId().equals(game.getPlayer1())? 0 : 1;
         board[x][y] = piece;
         if(checkWinner(board,piece)){
