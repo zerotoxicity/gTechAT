@@ -21,4 +21,7 @@ export const theme = extendTheme({
       highContrast: '##C9FDE1',
     },
   },
+  shadows: {
+    outline: '0 0 0 2px red',
+  },
 });

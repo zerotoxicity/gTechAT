@@ -49,7 +49,7 @@ const FormComponentButtons = ({ gameId, playerName }) => {
 
       <Button
         size={{ base: 'sm', md: 'lg' }}
-        colorScheme={'teal'}
+        colorScheme={'green'}
         isDisabled={!playerName}
         onClick={async () => {
           await onNewGameClick();

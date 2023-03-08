@@ -2,7 +2,7 @@ import { Box, Grid, GridItem, Text } from '@chakra-ui/react';
 import { TEXT_COLOR } from '../../constants';
 import PlayersDetail from './PlayersDetail';
 
-const GameDetails = ({ game }) => {
+const GameDetails = ({ game, playerName }) => {
   const textColor = TEXT_COLOR;
 
   return (
@@ -28,6 +28,7 @@ const GameDetails = ({ game }) => {
             player1={game.player1}
             player2={game.player2}
             nextPlayer={game.playerTurn}
+            playerName={playerName}
           />
         </GridItem>
         <GridItem colStart={2} colSpan={2}></GridItem>

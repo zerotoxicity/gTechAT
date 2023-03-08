@@ -104,7 +104,7 @@ public class GameService {
         //Diagonal win
         if(pieceVal == board[1][1]){
             if( board[0][0] == board[1][1] && board[0][0]==board[2][2]) return true;
-            return board[0][2] == board[1][1] && board[0][0] == board[2][0];
+            return board[0][2] == board[1][1] && board[0][2] == board[2][0];
         }
 
 

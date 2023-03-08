@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, Text } from '@chakra-ui/react';
+import { Box, Divider, Grid, GridItem, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { BACKEND_URL, TEXT_COLOR } from '../constants';
@@ -30,11 +30,20 @@ const Game = () => {
   });
   if (!game) return;
   return (
-    <Grid templateColumns="repeat(3,1fr)" m={{ base: 5, md: 10 }} pt={10}>
-      <GridItem colSpan={1}>
-        <GameDetails game={game} />
+    <Grid
+      templateColumns={{ base: 'repeat(1,1fr)', sm: 'repeat(3,1fr)' }}
+      templateRow={{ base: 'repeat(3,1fr)', sm: 'repeat(1,1fr)' }}
+      m={{ base: 5, md: 10 }}
+      pt={10}
+    >
+      <GridItem>
+        <GameDetails game={game} playerName={player} />
       </GridItem>
-      <GridItem colSpan={1}>
+      <GridItem
+        colStart={{ base: 0, sm: 2 }}
+        rowStart={{ base: 2, sm: 1 }}
+        mt={{ base: 5, sm: 0 }}
+      >
         <GameArea game={game} player={player} />
       </GridItem>
     </Grid>
