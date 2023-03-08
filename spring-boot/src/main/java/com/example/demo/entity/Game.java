@@ -14,6 +14,7 @@ import java.util.Arrays;
 @Table(name="game")
 public class Game {
     @Id
+    @Column(name = "gameId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int gameId;
 
@@ -36,6 +37,7 @@ public class Game {
     @Column(name="current_status")
     private Status status;
 
+    // @Enumerated(EnumType.STRING)
     @Column(name="winner")
     private Piece winner;
 

@@ -23,11 +23,7 @@ const GameArea = ({ game, player }) => {
   const curTurn = game.playerTurn === player ? true : false;
   let winner;
   if (game.winner === 'D') winner = 'TIE';
-  else
-    winner =
-      game.winner === 'X'
-        ? game.player1toUpperCase()
-        : game.player2.toUpperCase();
+  else winner = game.winner === 'X' ? game.player1 : game.player2;
   const submitHandler = () => {
     const requestOptions = {
       method: 'PUT',

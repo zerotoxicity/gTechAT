@@ -1,7 +1,7 @@
-import { Box, Divider, Grid, GridItem, Text } from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { BACKEND_URL, TEXT_COLOR } from '../constants';
+import { BACKEND_URL } from '../constants';
 import { useSubscription } from 'react-stomp-hooks';
 import GameDetails from '../components/GameComponents/GameDetails';
 import GameArea from '../components/GameComponents/GameArea';

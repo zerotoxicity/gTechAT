@@ -1,0 +1,34 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=spring
+      - POSTGRES_PASSWORD=spring
+      - POSTGRES_DB=demo
+    #Binds container port 5432 to host port 5432
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/psql.sql:/docker-entrypoint-initdb.d/psql.sql
+      - ./postgres-data:/var/lib/postgresql/data
+
+  backend:
+    build: spring-boot
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      #Prevents container from listening on 127.0.0.1
+      server.address: 0.0.0.0
+      server.port: 8080
+    expose:
+      - "8080"
+
+  frontend:
+    build: reactjs
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

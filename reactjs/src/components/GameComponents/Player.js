@@ -1,12 +1,4 @@
-import {
-  Box,
-  Center,
-  Flex,
-  Grid,
-  GridItem,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Center, Grid, GridItem, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { TEXT_COLOR } from '../../constants';
 

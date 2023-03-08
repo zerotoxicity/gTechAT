@@ -4,15 +4,11 @@ import com.example.demo.entity.Game;
 import com.example.demo.entity.Gameplay;
 import com.example.demo.enums.Piece;
 import com.example.demo.enums.Status;
-import com.example.demo.event.CustomSpringEvent;
 import com.example.demo.storage.GamesContainer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 @Service
@@ -88,7 +84,6 @@ public class GameService {
         game.setMoveCount(game.getMoveCount()+1);
 
         GamesContainer.getInstance().setGames(game);
-        String message = completed ? "Game ended" : "Turn completed";
         gameRepo.save(game);
         return game;
     }
