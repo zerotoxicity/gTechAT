@@ -1,4 +1,12 @@
-import { Box, Center, Flex, Stack, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Center,
+  Flex,
+  Grid,
+  GridItem,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { TEXT_COLOR } from '../../Constants';
 
@@ -21,24 +29,28 @@ const Player = ({ playerId, nextPlayer, piece }) => {
   };
 
   return (
-    <Stack direction={'row'}>
-      <Text {...textColor} as="b" fontSize={{ base: 'md', sm: '20' }}>
-        {playerId} :
-      </Text>
-      <Box
-        borderRadius="lg"
-        {...boxStyle}
-        minWidth={30}
-        minHeight={30}
-        blockSize="fit-content"
-      >
-        <Center>
-          <Text {...textStyle} as="b" fontSize={23}>
-            {piece}
-          </Text>
-        </Center>
-      </Box>
-    </Stack>
+    <Grid templateColumns="repeat(3, 1fr)" w={'fit-content'}>
+      <GridItem colStart={1} colSpan={2} mt={2}>
+        <Text {...textColor} as="b" fontSize={{ base: 'md', sm: '20' }}>
+          {playerId} :
+        </Text>
+      </GridItem>
+      <GridItem colStart={3} colSpan={1}>
+        <Box
+          borderRadius="lg"
+          {...boxStyle}
+          minWidth={30}
+          minHeight={30}
+          blockSize="fit-content"
+        >
+          <Center>
+            <Text {...textStyle} as="b" fontSize={30}>
+              {piece}
+            </Text>
+          </Center>
+        </Box>
+      </GridItem>
+    </Grid>
   );
 };
 

@@ -1,20 +1,19 @@
 import { Button, Flex, Spacer } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { BACKEND_URL, JOIN_GAME_BODY, NEW_GAME_BODY } from '../Constants';
+import { checkJson } from '../helperFunctions';
 
 const FormComponentButtons = ({ gameId, playerName }) => {
-  const url = BACKEND_URL;
   const navigate = useNavigate();
 
   const fetchFunction = async join => {
     const reqBody = join ? JOIN_GAME_BODY : NEW_GAME_BODY;
     const id = join ? gameId + '/' : '';
+    const url = BACKEND_URL;
 
     await fetch(url + 'games/' + id + playerName, reqBody)
       .then(async response => {
-        const isJson = response.headers
-          .get('content-type')
-          ?.includes('application/json');
+        const isJson = checkJson(response);
         const data = isJson && (await response.json());
         if (!response.ok) {
           const error = response.status;

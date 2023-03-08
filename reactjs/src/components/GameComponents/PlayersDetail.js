@@ -7,7 +7,7 @@ const PlayersDetail = ({ player1, player2, nextPlayer }) => {
 
   return (
     <Grid w={200}>
-      <GridItem>
+      <GridItem mb={5}>
         <Text {...textColor} as={'b'} fontSize={{ base: 'md', sm: '30' }}>
           Players:
         </Text>

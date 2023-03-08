@@ -6,6 +6,7 @@ import com.example.demo.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -19,7 +20,8 @@ import java.util.Map;
 public class GameController {
 
     private final GameService gameService;
-    private final List<SseEmitter> emitters = new ArrayList<>();
+    @Autowired
+    private SimpMessagingTemplate template;
 
     @Autowired
     public GameController(GameService gameService){
@@ -27,13 +29,13 @@ public class GameController {
     }
 
     @GetMapping("/games")
-    public Map<Integer,Game> getGames(){
+    public List<Game> getGames(){
         return gameService.getGame();
     }
 
     @GetMapping("/games/{id}")
     public Game getGames(@PathVariable String id) throws Exception {
-        return gameService.getGame(Integer.parseInt(id)-1);
+        return gameService.getGame(id);
     }
 
     @PostMapping("/games/{id}")
@@ -43,17 +45,13 @@ public class GameController {
 
     @PutMapping("/games/{id}")
     public ResponseEntity<Game> putGame(@PathVariable String id, @RequestBody Gameplay gameplay) throws Exception {
-        return ResponseEntity.ok(gameService.gameplay(gameplay,Integer.parseInt(id)-1));
+        return ResponseEntity.ok(gameService.gameplay(gameplay,id));
     }
 
-    @SendTo("/ws/lobby")
     @PutMapping("/games/{id}/{playerTwoId}")
     public Game putGamePlayerTwo(@PathVariable String id, @PathVariable String playerTwoId) throws Exception {
-        Game game =(gameService.connectToGame(playerTwoId, Integer.parseInt(id)-1));
-        SseEmitter emitter = new SseEmitter();
-        emitter.send("New player");
-        emitters.add(emitter);
-        emitter.onCompletion(() -> emitters.remove(emitter));
+        Game game = gameService.connectToGame(playerTwoId, id);
+        template.convertAndSend("/topic/lobby",id+"@New user");
         return game;
     }
 }

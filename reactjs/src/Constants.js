@@ -7,6 +7,12 @@ export const NEW_GAME_BODY = {
   body: JSON.stringify({}),
 };
 
+export const GET_GAME_BODY = {
+  method: 'GET',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({}),
+};
+
 export const JOIN_GAME_BODY = {
   method: 'PUT',
   headers: { 'Content-Type': 'application/json' },

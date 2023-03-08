@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -28,33 +29,29 @@ public class GameService {
         this.gameRepo = gameRepo;
     }
 
-    public Map<Integer,Game> getGame(){
-        return GamesContainer.getInstance().getGames();
+    public List<Game> getGame(){
+        return gameRepo.findAll();
     }
 
-    public Game getGame(Integer gameId) throws Exception {
-         if (!GamesContainer.getInstance().getGames().containsKey(gameId)) throw new Exception("Invalid game");
-        return GamesContainer.getInstance().getGames().get(gameId);
-
+    public Game getGame(String gameId) throws Exception {
+//         if (!GamesContainer.getInstance().getGames().containsKey(gameId)) throw new Exception("Invalid game");
+//        return GamesContainer.getInstance().getGames().get(gameId);
+       return gameRepo.findById(gameId).orElseThrow();
     }
 
     public Game newGame(String player){
         Game game = new Game(new int[3][3],player);
-        GamesContainer.getInstance().setGames(game);
+//        GamesContainer.getInstance().setGames(game);
         gameRepo.save(game);
         return game;
     }
 
-    public Game connectToGame(String player2, Integer gameId) throws Exception {
-        GamesContainer gamesContainer = GamesContainer.getInstance();
-        if(!gamesContainer.getGames().containsKey(gameId)){
-            throw new Exception("Invalid game");
-        }
-        Game game = gamesContainer.getGames().get(gameId);
+    public Game connectToGame(String player2, String gameId) throws Exception {
+
+        Game game = gameRepo.findById(gameId).orElseThrow();
         if(game.getPlayer2()!=null) throw new Exception("Player 2 exists");
         game.setPlayer2(player2);
         game.setStatus(Status.STARTED);
-        gamesContainer.setGames(game);
         Random rn = new Random();
         int startingPlayer = rn.nextInt(1+1);
         String nextPlayer = startingPlayer == 0 ? game.getPlayer1() : player2;
@@ -63,9 +60,9 @@ public class GameService {
         return game;
     }
 
-    public Game gameplay(Gameplay gameplay,Integer id) throws Exception {
+    public Game gameplay(Gameplay gameplay, String id) throws Exception {
         boolean completed = false;
-        Game game = GamesContainer.getInstance().getGames().get(id);
+        Game game = gameRepo.findById(id).orElseThrow();
         if(!game.getPlayerTurn().equals(gameplay.getPlayerId())) throw new Exception("Invalid player turn");
         if(game.getStatus().equals(Status.END)) throw new Exception("Game has ended");
         int[][] board = game.getBoard();
@@ -92,8 +89,6 @@ public class GameService {
 
         GamesContainer.getInstance().setGames(game);
         String message = completed ? "Game ended" : "Turn completed";
-//        CustomSpringEvent customSpringEvent = new CustomSpringEvent(this,message);
-//        applicationEventPublisher.publishEvent(customSpringEvent);
         gameRepo.save(game);
         return game;
     }
