@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { theme } from './styles/theme';
 import Home from './pages/Home';
 import Game from './pages/Game';
-import { BACKEND_URL } from './Constants';
+import { BACKEND_URL } from './constants';
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 import { Button, Flex, Spacer } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { BACKEND_URL, JOIN_GAME_BODY, NEW_GAME_BODY } from '../Constants';
+import { BACKEND_URL, JOIN_GAME_BODY, NEW_GAME_BODY } from '../constants';
 import { checkJson } from '../helperFunctions';
 
 const FormComponentButtons = ({ gameId, playerName }) => {
@@ -19,7 +19,7 @@ const FormComponentButtons = ({ gameId, playerName }) => {
           const error = response.status;
           return Promise.reject(error);
         }
-        navigate('/game', { state: data });
+        navigate('/game', { state: { data: data, player: playerName } });
       })
       .catch(error => console.error('error', error));
   };

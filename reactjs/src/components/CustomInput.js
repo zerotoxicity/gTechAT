@@ -1,5 +1,5 @@
 import { Input, Text } from '@chakra-ui/react';
-import { TEXT_COLOR } from '../Constants';
+import { TEXT_COLOR } from '../constants';
 
 const CustomInput = ({ setter, placeholder, required = false }) => {
   const changeHandler = e => {

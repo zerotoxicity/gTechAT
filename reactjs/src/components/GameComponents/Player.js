@@ -8,7 +8,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { TEXT_COLOR } from '../../Constants';
+import { TEXT_COLOR } from '../../constants';
 
 const Player = ({ playerId, nextPlayer, piece }) => {
   const [boxStyle, setBoxStyle] = useState();
@@ -30,12 +30,12 @@ const Player = ({ playerId, nextPlayer, piece }) => {
 
   return (
     <Grid templateColumns="repeat(3, 1fr)" w={'fit-content'}>
-      <GridItem colStart={1} colSpan={2} mt={2}>
-        <Text {...textColor} as="b" fontSize={{ base: 'md', sm: '20' }}>
+      <GridItem colStart={1} colSpan={2}>
+        <Text {...textColor} as="b" fontSize={{ base: 'md', sm: '25' }}>
           {playerId} :
         </Text>
       </GridItem>
-      <GridItem colStart={3} colSpan={1}>
+      <GridItem colStart={3} colSpan={1} pl={1}>
         <Box
           borderRadius="lg"
           {...boxStyle}
@@ -44,7 +44,7 @@ const Player = ({ playerId, nextPlayer, piece }) => {
           blockSize="fit-content"
         >
           <Center>
-            <Text {...textStyle} as="b" fontSize={30}>
+            <Text {...textStyle} as="b" fontSize={25}>
               {piece}
             </Text>
           </Center>

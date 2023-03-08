@@ -18,5 +18,6 @@ export const JOIN_GAME_BODY = {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({}),
 };
+export const errorAudio = new Audio('/error.mp3');
 
 export const TEXT_COLOR = { color: 'green.200' };
