@@ -12,7 +12,9 @@ function App() {
   return (
     <StompSessionProvider url={WEBSOCKET_URL}>
       <ChakraProvider theme={theme}>
-        <Navbar />
+        <header>
+          <Navbar />
+        </header>
         <main>
           <Routes>
             <Route exact path="/" element={<Home />} />

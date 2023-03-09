@@ -6,6 +6,8 @@ const Player = ({ playerId, nextPlayer, piece, playerName }) => {
   const [boxStyle, setBoxStyle] = useState();
   const [textStyle, setTextStyle] = useState();
   const textColor = TEXT_COLOR;
+  const subPlayerName =
+    playerId.length > 7 ? playerId.substring(0, 4) + '...' : playerId;
   useEffect(() => {
     isTurn(playerId, nextPlayer);
   }, [nextPlayer, playerId]);
@@ -30,7 +32,7 @@ const Player = ({ playerId, nextPlayer, piece, playerName }) => {
       <Grid templateColumns="repeat(3, 1fr)" w={'fit-content'} m={2}>
         <GridItem colStart={1} colSpan={2}>
           <Text {...textColor} as="b" fontSize={{ base: 'md', sm: '25' }}>
-            {playerId} :
+            {subPlayerName} :
           </Text>
         </GridItem>
         <GridItem colStart={3} colSpan={1} pl={1}>

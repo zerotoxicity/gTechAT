@@ -6,17 +6,17 @@ import com.example.demo.enums.Piece;
 import com.example.demo.enums.Status;
 import com.example.demo.storage.GamesContainer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Random;
 
 @Service
 public class GameService {
-//    @Autowired
-//    private ApplicationEventPublisher applicationEventPublisher;
-
-
 
     private final GameRepo gameRepo;
 
@@ -30,8 +30,6 @@ public class GameService {
     }
 
     public Game getGame(String gameId) throws Exception {
-//         if (!GamesContainer.getInstance().getGames().containsKey(gameId)) throw new Exception("Invalid game");
-//        return GamesContainer.getInstance().getGames().get(gameId);
        return gameRepo.findById(gameId).orElseThrow();
     }
 
@@ -42,10 +40,15 @@ public class GameService {
         return game;
     }
 
-    public Game connectToGame(String player2, String gameId) throws Exception {
+    public ResponseEntity<?> connectToGame(String player2, String gameId) throws Exception {
 
         Game game = gameRepo.findById(gameId).orElseThrow();
-        if(game.getPlayer2()!=null) throw new Exception("Player 2 exists");
+        if(game.getPlayer2()!=null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Game is full!");
+        }
+        if(game.getPlayer1().equals(player2)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Name is taken");
+        }
         game.setPlayer2(player2);
         game.setStatus(Status.STARTED);
         Random rn = new Random();
@@ -53,13 +56,14 @@ public class GameService {
         String nextPlayer = startingPlayer == 0 ? game.getPlayer1() : player2;
         game.setPlayerTurn(nextPlayer);
         gameRepo.save(game);
-        return game;
+        return ResponseEntity.ok(game);
     }
 
     public Game gameplay(Gameplay gameplay, String id) throws Exception {
         boolean completed = false;
         Game game = gameRepo.findById(id).orElseThrow();
-        if(!game.getPlayerTurn().equals(gameplay.getPlayerId())) throw new Exception("Invalid player turn");
+        if(!game.getPlayerTurn().equals(gameplay.getPlayerId())) {
+            throw new Exception("Invalid player turn");}
         if(game.getStatus().equals(Status.END)) throw new Exception("Game has ended");
         int[][] board = game.getBoard();
         int x = gameplay.getCoordX(),y = gameplay.getCoordY();
@@ -94,7 +98,7 @@ public class GameService {
             //Horizontal check
             if(pieceVal==board[i][0] && board[i][0]==board[i][1] && board[i][0]==board[i][2]) return true;
             //Vertical check
-            if(pieceVal==board[0][i] && board[0][i]==board[1][i] && board[0][i]==board[i][2]) return true;
+            if(pieceVal==board[0][i] && board[0][i]==board[1][i] && board[0][i]==board[2][i]) return true;
         }
         //Diagonal win
         if(pieceVal == board[1][1]){

@@ -5,7 +5,7 @@ const styles = {
   global: props => ({
     body: {
       color: mode('blackAlpha.800', 'blackAlpha.800')(props),
-      bg: mode('#303030', '##ebebeb')(props),
+      bg: mode('#2E2E2E', '##ebebeb')(props),
     },
   }),
 };
@@ -22,6 +22,6 @@ export const theme = extendTheme({
     },
   },
   shadows: {
-    outline: '0 0 0 2px red',
+    outline: '0 0 0 2px #F00000',
   },
 });

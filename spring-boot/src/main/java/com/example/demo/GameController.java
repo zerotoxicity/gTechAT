@@ -28,31 +28,36 @@ public class GameController {
         this.gameService = gameService;
     }
 
+    //Fetch all games
     @GetMapping("/games")
     public List<Game> getGames(){
         return gameService.getGame();
     }
 
+    //Fetch the game with game id
     @GetMapping("/games/{id}")
     public Game getGame(@PathVariable String id) throws Exception {
         return gameService.getGame(id);
     }
 
+    //Create new game
     @PostMapping("/games/{id}")
     public ResponseEntity<Game> postGame(@PathVariable String id){
         return ResponseEntity.ok(gameService.newGame(id));
     }
 
+    //Make a move in the game with id
     @PutMapping("/games/{id}")
     public ResponseEntity<Game> putGame(@PathVariable String id, @RequestBody Gameplay gameplay) throws Exception {
         template.convertAndSend("/topic/lobby",id+"@Update");
         return ResponseEntity.ok(gameService.gameplay(gameplay,id));
     }
 
+    //Connect playerTwoId to the game with id
     @PutMapping("/games/{id}/{playerTwoId}")
-    public Game putGamePlayerTwo(@PathVariable String id, @PathVariable String playerTwoId) throws Exception {
-        Game game = gameService.connectToGame(playerTwoId, id);
+    public ResponseEntity<?> putGamePlayerTwo(@PathVariable String id, @PathVariable String playerTwoId) throws Exception {
+         ResponseEntity re= gameService.connectToGame(playerTwoId, id);
         template.convertAndSend("/topic/lobby",id+"@New player");
-        return game;
+        return re;
     }
 }

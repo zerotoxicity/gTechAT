@@ -1,12 +1,3 @@
-
--- DROP TYPE IF EXISTS PIECE;
--- DROP TYPE IF EXISTS STAT;
--- -- CREATE CAST (smallint AS PIECE) WITH INOUT AS IMPLICIT;
--- CREATE CAST (smallint AS STAT) WITH INOUT AS IMPLICIT;
-
--- CREATE TYPE PIECE AS ENUM ('X','O');
--- CREATE TYPE STAT AS ENUM ('NEW','STARTED','END');
-
 CREATE TABLE IF NOT EXISTS game(
                                    gameId VARCHAR(200) PRIMARY KEY,
                                    board INTEGER[3][3],

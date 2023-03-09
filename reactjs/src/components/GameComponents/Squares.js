@@ -43,7 +43,7 @@ const Squares = ({
   return (
     <Button
       borderColor={'white'}
-      border="1px"
+      border="2px"
       colorScheme={'#303030'}
       onClick={() => {
         if (
@@ -54,8 +54,8 @@ const Squares = ({
           errorAudio.play();
         } else clickHandler();
       }}
-      h={{ base: 10, md: 120 }}
-      w={{ base: 10, md: 120 }}
+      h={{ base: 10, sm: 70, md: 120 }}
+      w={{ base: 10, sm: 70, md: 120 }}
       isDisabled={!started || !curTurn}
     >
       <Text {...textColor} as="b" fontSize={{ base: 30, md: 70 }}>

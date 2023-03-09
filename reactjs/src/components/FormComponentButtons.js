@@ -1,9 +1,14 @@
 import { Button, Flex, Spacer } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { BACKEND_URL, JOIN_GAME_BODY, NEW_GAME_BODY } from '../constants';
+import {
+  BACKEND_URL,
+  errorAudio,
+  JOIN_GAME_BODY,
+  NEW_GAME_BODY,
+} from '../constants';
 import { checkJson } from '../helperFunctions';
 
-const FormComponentButtons = ({ gameId, playerName }) => {
+const FormComponentButtons = ({ gameId, playerName, setError }) => {
   const navigate = useNavigate();
 
   const fetchFunction = async join => {
@@ -14,14 +19,17 @@ const FormComponentButtons = ({ gameId, playerName }) => {
     await fetch(url + 'games/' + id + playerName, reqBody)
       .then(async response => {
         const isJson = checkJson(response);
+        let error = response;
         const data = isJson && (await response.json());
         if (!response.ok) {
-          const error = response.status;
           return Promise.reject(error);
         }
         navigate('/game', { state: { data: data, player: playerName } });
       })
-      .catch(error => console.error('error', error));
+      .catch(error => {
+        errorAudio.play();
+        setError(true);
+      });
   };
 
   const onNewGameClick = async () => {
