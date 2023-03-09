@@ -123,17 +123,28 @@ http://localhost:3000
 
 4. On browser 2, enter Player name and the game ID, then select the "Join Game" button.
 
+
+
+
 #### Usage videos
 
-![Using the app with keyboard and mouse](doc/videos/KeyMouse.mp4)
-Player __Keyboard__ uses only keyboard to interact with app, while player __Mouse__ interacts using a mouse.
+[![Interacting with keyboard or mouse](doc/videos/KeyMouse.mp4)](https://user-images.githubusercontent.com/31730313/223983933-2927b5b2-f564-44c3-bf57-94a3f990eb0e.mp4)
 
-![Interacting with screen reader](doc/videos/voice.mp4)
-This show the interaction of the application with a screen reader
+Previous video shows player __Keyboard__ uses only keyboard to interact with app, while player __Mouse__ interacts using a mouse.
+
+<br /> <br /> <br />
+
+[![Interacting with screen reader](doc/videos/voice.mp4)](https://user-images.githubusercontent.com/31730313/223982260-b4361794-60c5-4721-9ba0-7983159122a2.mp4)
+
+The previous video shows the interaction of the application with a screen reader
 <br /> <br /> <br /> <br />
+
 ![Screenshot of the app in portrait mode](doc/images/mobileP.png)
+<br />
 Screenshot of the application in portrait mode
 <br /> <br /> <br /> <br />
+
+
 ![Screenshot of the app in landscape mode](doc/images/mobileL.png)
 Screenshot of the application in landscape mode
 
