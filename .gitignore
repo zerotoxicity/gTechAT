@@ -3,7 +3,6 @@ target/
 !spring-boot/.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
 ### STS ###
 .apt_generated
 .classpath
@@ -34,3 +33,4 @@ build/
 
 /postgres-data/*
 .idea/*
+!spring-boot/target/demo-0.0.1-SNAPSHOT.jar
