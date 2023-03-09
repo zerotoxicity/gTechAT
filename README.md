@@ -21,7 +21,7 @@ Built using ReactJS, Spring Boot, and Postgres.
 
 #### Accessibility considerations
 
-With accessibility in mind, the frontend was designed with Chakra UI. It provides a range of inclusive components that enable users to interact with them using only a keyboard.
+With accessibility in mind, the frontend was designed with Chakra UI. It provides a range of inclusive components that enable users to interact with, using only a keyboard.
 The frontend is also responsive, allowing users to play the game even with different orientations.
 ARIA landmarks have been implemented to help users to skip over unnecessary information.
 
@@ -38,6 +38,10 @@ To simplify installation, the application has been containerized using Docker. W
 
 To allow multiplayer gameplay, Websocket has been implemented to inform clients to update their game to its latest state.
 <br /><br />
+
+#### Assumptions
+
+In a game, player names are used as identifiers and each player has a unique name within that game. However, it is possible for different games to have players with the same name, as player names are not globally unique.
 
 ### Architecture Implementation
 
