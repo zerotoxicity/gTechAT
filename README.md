@@ -74,6 +74,8 @@ Players can access the website on localhost port 3000.
 1. Clone this repository
 
 ```
+git clone https://gitfront.io/r/user-7911234/utZTDuQjoXoo/AET-swe_AngHaoJun.git
+or
 git clone https://github.com/zerotoxicity/gTechAT.git
 ```
 
